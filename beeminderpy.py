@@ -1,41 +1,46 @@
 import urllib
 import urllib2
 
-class beeminder:
-  def __init__(self, auth_token):
-    self.AUTH_TOKEN=auth_token
-    self.BASE_URL='https://www.beeminder.com/api/v1/'
+# based on https://www.beeminder.com/api
 
-  def GetUser(self,username):
-    url = self.BASE_URL+'users/'+username+'.json'
-    values = {'auth_token':self.AUTH_TOKEN}
-    data = urllib.urlencode(values) 
-    req = urllib2.urlopen(url+'?'+data)
-    result = req.read()
+class Beeminder:
+  def __init__(self, this_auth_token):
+    self.auth_token=this_auth_token
+    self.base_url='https://www.beeminder.com/api/v1'
+
+  def get_user(self,username):
+    url = "%s/users/%s.json" % (self.base_url,username)
+    values = {'auth_token':self.auth_token}
+    result = self.call_api(url,values,'GET')
     return result
 
-  def GetGoal(self,username,goalname):
-    url = self.BASE_URL+'users/'+username+'/goals/'+goalname+'.json'
-    values = {'auth_token':self.AUTH_TOKEN}
-    data = urllib.urlencode(values)
-    req = urllib2.urlopen(url+'?'+data)
-    result = req.read()
+  def get_goal(self,username,goalname):
+    url = "%s/users/%s/goals/%s.json" % (self.base_url,username,goalname)
+    values = {'auth_token':self.auth_token}
+    result = self.call_api(url,values,'GET')
     return result
 
-  def GetDatapoints(self,username,goalname):
-    url = self.BASE_URL+'users/'+username+'/goals/'+goalname+'/datapoints.json'
-    values = {'auth_token':self.AUTH_TOKEN}
-    data = urllib.urlencode(values)
-    req = urllib2.urlopen(url+'?'+data)
-    result = req.read()
+  def get_datapoints(self,username,goalname):
+    url = self.base_url+'users/'+username+'/goals/'+goalname+'/datapoints.json'
+    url = "%s/users/%s/goals/%s/datapoints.json" % (self.base_url,username,goalname)
+    values = {'auth_token':self.auth_token}
+    result = self.call_api(url,values,'GET')
     return result
 
-  def CreateDatapoint(self,username,goalname,ts,value,comment,sendmail):
-    url = self.BASE_URL+'users/'+username+'/goals/'+goalname+'/datapoints.json'
-    values = {'auth_token':self.AUTH_TOKEN, 'timestamp':ts, 'value':value, 'comment':comment, 'sendmail':sendmail}
+  def create_datapoint(self,username,goalname,timestamp,value,comment=' ',sendmail='false'):
+    url = self.base_url+'users/'+username+'/goals/'+goalname+'/datapoints.json'
+    url = "%s/users/%s/goals/%s/datapoints.json" % (self.base_url,username,goalname)
+    values = {'auth_token':self.auth_token, 'timestamp':timestamp, 'value':value, 'comment':comment, 'sendmail':sendmail}
+    result = self.call_api(url,values,'POST')
+    return result
+
+  def call_api(self,url,values,method='GET'):
+    result=''
     data = urllib.urlencode(values)
-    req = urllib2.Request(url,data)
-    response = urllib2.urlopen(req)
+    if method=='POST':
+      req = urllib2.Request(url,data)
+      response = urllib2.urlopen(req)
+    else:
+      response = urllib2.urlopen(url+'?'+data)
     result=response.read()
     return result
-
