@@ -13,3 +13,21 @@ class beeminder:
     req = urllib2.urlopen(url+'?'+data)
     result = req.read()
     return result
+
+  def GetGoal(self,username,goalname):
+    url = self.BASE_URL+'users/'+username+'/goals/'+goalname+'.json'
+    values = {'auth_token':self.AUTH_TOKEN}
+    data = urllib.urlencode(values)
+    req = urllib2.urlopen(url+'?'+data)
+    result = req.read()
+    return result
+
+
+  def GetDatapoints(self,username,goalname):
+    url = self.BASE_URL+'users/'+username+'/goals/'+goalname+'/datapoints.json'
+    values = {'auth_token':self.AUTH_TOKEN}
+    data = urllib.urlencode(values)
+    req = urllib2.urlopen(url+'?'+data)
+    result = req.read()
+    return result
+
