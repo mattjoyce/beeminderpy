@@ -1,5 +1,6 @@
 import urllib
 import urllib2
+import settings
 
 # based on https://www.beeminder.com/api
 

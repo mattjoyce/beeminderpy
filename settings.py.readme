@@ -1,0 +1,16 @@
+#for beeminder values looks here for help : 
+# https://www.beeminder.com/api
+BEEMINDER_USERNAME='username'
+BEEMINDER_AUTH_TOKEN='token'
+
+
+#for fitbit value, look here for help : 
+# https://groups.google.com/forum/?fromgroups=#!topic/fitbit-api/CkXQ6-0-vMs
+FITBIT_BASE_URL='api.fitbit.com'
+FITBIT_CONSUMER_KEY='consumer key'
+FITBIT_CONSUMER_SECRET='consumer secret'
+FITBIT_ACCESS_TOKEN_FSP='full path to local file'
+FITBIT_REQUEST_TOKEN_URL='http://%s/oauth/request_token' % FITBIT_BASE_URL
+FITBIT_AUTH_URL='http://%s/oauth/access_token' % FITBIT_BASE_URL
+FITBIT_ACCESS_TOKEN_URL='http://%s/oauth/authorize' % FITBIT_BASE_URL
+FITBIT_REALM=FITBIT_BASE_URL
