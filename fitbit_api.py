@@ -114,9 +114,9 @@ def main():
                           consumer_key      ='', 
                           consumer_secret   ='',
                           access_token_fsp  ='access_token.string',
-                          request_token_url ='http://%s/oauth/request_token' % SERVER,
-                          auth_url          ='http://%s/oauth/access_token' % SERVER, 
-                          access_token_url  ='http://%s/oauth/authorize' % SERVER,
+                          request_token_url ='https://%s/oauth/request_token' % SERVER,
+                          auth_url          ='https://%s/oauth/access_token' % SERVER, 
+                          access_token_url  ='https://%s/oauth/authorize' % SERVER,
                           realm             =SERVER)
 
    if len(sys.argv)>1:

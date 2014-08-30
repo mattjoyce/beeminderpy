@@ -26,8 +26,10 @@ def main():
 
   #deal with the date
   #either privide a specific date 'yyyymmdd' or a delta '-2'
-  tdate='-2'
-  yyyymmdd=""
+  tdate='-6'
+  if len(sys.argv) >1 :
+    tdate=sys.argv[1]
+  yyyymmdd="2012-11-05"
   try:
     yyyymmdd=datetime.datetime.strptime(tdate, "%Y-%m-%d")
   except ValueError:
@@ -49,7 +51,7 @@ def main():
   print timestamp
 
   
-  beeapi.create_datapoint(settings.BEEMINDER_USERNAME,'fitbit',timestamp,value,'test','true')
+  beeapi.create_datapoint(settings.BEEMINDER_USERNAME,'fitbit',timestamp,value,'via API','true')
 
 if __name__ == '__main__':
    main()
